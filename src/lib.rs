@@ -1,4 +1,6 @@
 pub fn numeral_for(number: i32) -> String{
+    let mut result = String::default();
+
     if number == 10 {
         return String::from("X")
     }
@@ -8,5 +10,17 @@ pub fn numeral_for(number: i32) -> String{
     if number == 1000 {
         return String::from("M")
     }
-    return String::from("I")
+
+    if number / 10 > 0{
+        for _ in 0..number / 10 {
+            result.push('X');
+        }
+        return result;
+    }
+
+    for _ in 0..number {
+        result.push('I');
+    }
+
+    return result;
 }
