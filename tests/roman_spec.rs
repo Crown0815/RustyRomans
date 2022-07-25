@@ -36,5 +36,15 @@ mod tests {
         assert_eq!(roman_rust::numeral_for(20), "XX");
     }
 
+    #[test]
+    fn roman_200_is_twice_c() {
+        assert_eq!(roman_rust::numeral_for(200), "CC");
+    }
+
+    #[test]
+    fn roman_2000_is_twice_m() {
+        assert_eq!(roman_rust::numeral_for(2000), "MM");
+    }
+
 
 }
