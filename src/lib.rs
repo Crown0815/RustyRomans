@@ -1,5 +1,5 @@
 macro_rules! reduce {
-    ($number: ident, $divisor: expr, $character: expr, $result: ident) => {
+    ($divisor: expr, $character: expr, $number: ident, $result: ident) => {
         if $number / $divisor > 0 {
             for _ in 0..$number / $divisor {
                 $result.push_str($character);
@@ -14,19 +14,19 @@ pub fn numeral_for(number: i32) -> String{
     let mut result = String::default();
     let mut rest = number;
 
-    reduce!(rest, 1000,"M", result);
-    reduce!(rest, 900,"CM", result);
-    reduce!(rest, 500,"D", result);
-    reduce!(rest, 400,"CD", result);
-    reduce!(rest, 100,"C", result);
-    reduce!(rest, 90,"XC", result);
-    reduce!(rest, 50,"L", result);
-    reduce!(rest, 40,"XL", result);
-    reduce!(rest, 10,"X", result);
-    reduce!(rest, 9,"IX", result);
-    reduce!(rest, 5,"V", result);
-    reduce!(rest, 4,"IV", result);
-    reduce!(rest, 1,"I", result);
+    reduce!(1000,"M", rest, result);
+    reduce!(900 ,"CM",rest, result);
+    reduce!(500 ,"D", rest, result);
+    reduce!(400 ,"CD",rest, result);
+    reduce!(100 ,"C", rest, result);
+    reduce!(90  ,"XC",rest, result);
+    reduce!(50  ,"L", rest, result);
+    reduce!(40  ,"XL",rest, result);
+    reduce!(10  ,"X", rest, result);
+    reduce!(9   ,"IX",rest, result);
+    reduce!(5   ,"V", rest, result);
+    reduce!(4   ,"IV",rest, result);
+    reduce!(1   ,"I", rest, result);
 
     return result;
 }
