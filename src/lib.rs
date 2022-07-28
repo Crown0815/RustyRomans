@@ -28,5 +28,5 @@ pub fn numeral_for(number: i32) -> String{
     reduce!(4   ,"IV",rest, result);
     reduce!(1   ,"I", rest, result);
 
-    return result;
+    result
 }
