@@ -73,6 +73,8 @@ mod tests {
     #[test_case(1111, "MCXI")]
     #[test_case(999, "CMXCIX")]
     #[test_case(3999, "MMMCMXCIX")]
+    #[test_case(24, "XXIV")]
+    #[test_case(1988, "MCMLXXXVIII")]
     fn other_numbers_are_concatenated_versions_of_the_previous_cases(number: i32, numeral: &str) {
         assert_eq!(roman_rust::numeral_for(number), numeral);
     }
