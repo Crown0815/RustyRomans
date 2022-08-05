@@ -1,32 +1,44 @@
-macro_rules! reduce {
-    ($divisor: expr, $character: expr, $number: ident, $result: ident) => {
-        if $number / $divisor > 0 {
-            for _ in 0..$number / $divisor {
-                $result.push_str($character);
-            }
-            $number = $number - ($number / $divisor) * $divisor;
+#[derive(Clone)]
+struct Cache {
+    rest: i32,
+    roman: String,
+}
+
+impl Cache {
+    fn reduce(&self, value: i32, letter: &str) -> Cache {
+        let mut temp = self.clone();
+        while temp.rest >= value {
+            temp = temp.transfer(value, letter);
+        }
+        return temp;
+    }
+
+    fn transfer(&self, number: i32, letter: &str) -> Cache {
+        Cache {
+            rest: self.rest - number,
+            roman: format!("{}{}", self.roman, letter),
         }
     }
 }
 
-#[allow(unused_assignments)]
-pub fn numeral_for(number: i32) -> String{
-    let mut result = String::default();
-    let mut rest = number;
+pub fn numeral_for(number: i32) -> String {
+    let tmp = Cache {
+        rest: number,
+        roman: String::default(),
+    };
 
-    reduce!(1000,"M", rest, result);
-    reduce!(900 ,"CM",rest, result);
-    reduce!(500 ,"D", rest, result);
-    reduce!(400 ,"CD",rest, result);
-    reduce!(100 ,"C", rest, result);
-    reduce!(90  ,"XC",rest, result);
-    reduce!(50  ,"L", rest, result);
-    reduce!(40  ,"XL",rest, result);
-    reduce!(10  ,"X", rest, result);
-    reduce!(9   ,"IX",rest, result);
-    reduce!(5   ,"V", rest, result);
-    reduce!(4   ,"IV",rest, result);
-    reduce!(1   ,"I", rest, result);
-
-    result
+    return tmp.reduce(1000, "M")
+        .reduce(900, "CM")
+        .reduce(500, "D")
+        .reduce(400, "CD")
+        .reduce(100, "C")
+        .reduce(90, "XC")
+        .reduce(50, "L")
+        .reduce(40, "XL")
+        .reduce(10, "X")
+        .reduce(9, "IX")
+        .reduce(5, "V")
+        .reduce(4, "IV")
+        .reduce(1, "I")
+        .roman;
 }
